@@ -2,9 +2,9 @@
 #include <assert.h>
 #include <pthread.h>
 
-login int counter = 0;
+long int counter = 0;
 
-void* run(void* args) {
+void *run(void *args) {
 	int my_id;
 	long int j;
 	
@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 	
 	for(i = 0; i < 3; i++)
 	{
-		pthread_create(&pthreads[i], NULL, &run, (void*) i);
+		pthread_create(&(pthreads[i]), NULL, &run, (void*) i);
 	}
 	
 	for(i = 0; i < 3; i++)
