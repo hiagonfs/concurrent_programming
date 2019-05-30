@@ -2,17 +2,18 @@ package quest_03;
 
 import java.util.Random;
 
-public class Main {
+public class B {
 	
 	static int soma = 0;
 	
 	public static void main(String[] args) {
-		System.out.println(gateway(5));	
+		System.out.println("soma "+gateway(5));
 	}
 	
 	static int gateway(int num_replicas){
+		Thread thread = null;
 		for (int i = 0; i < num_replicas; i++) {
-			Thread thread = new Thread(){
+			thread = new Thread(){
 				@Override
 				public void run() {
 					int valor = request();
@@ -28,12 +29,12 @@ public class Main {
 				}
 			};
 			thread.start();
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		}
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return soma;
 	}
