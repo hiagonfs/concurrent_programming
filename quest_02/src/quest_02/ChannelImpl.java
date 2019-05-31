@@ -34,7 +34,7 @@ public class ChannelImpl implements Channel {
 		synchronized (this.buffer) {
 			while(isEmpty()) {
 				try {
-					this.buffer.wait();
+					this.wait();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
