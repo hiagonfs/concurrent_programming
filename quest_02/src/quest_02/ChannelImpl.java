@@ -43,10 +43,10 @@ public class ChannelImpl implements Channel {
 			this.buffer.notifyAll();
 		}
 		return mensagem;
-	}
+	} 
 
 	private boolean isFull() {
-		return buffer.size() == this.capacidadeMaxima;
+		return this.buffer.size() == this.capacidadeMaxima;
 	}
 
 	private boolean isEmpty() {

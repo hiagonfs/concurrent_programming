@@ -40,7 +40,7 @@ public class Main {
 			canal01.putMessage("teste");
 		});
 		Thread th04 = new Thread(() -> {
-			canal01.putMessage(":D");
+			canal01.putMessage("fim");
 		});
 		
 		
