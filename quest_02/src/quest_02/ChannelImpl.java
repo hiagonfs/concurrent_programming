@@ -15,7 +15,7 @@ public class ChannelImpl implements Channel {
 
 	@Override
 	public void putMessage(String message) {
-		synchronized (this.buffer) {
+		synchronized (this) {
 			if (!isFull()) {
 				this.buffer.add(message);
 				this.buffer.notifyAll();
@@ -32,7 +32,7 @@ public class ChannelImpl implements Channel {
 	@Override
 	public String takeMessage() {
 		String mensagem = null; 
-		synchronized (this.buffer) {
+		synchronized (this) {
 			if(isEmpty()) {
 				try {
 					this.buffer.wait();
