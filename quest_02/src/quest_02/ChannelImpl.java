@@ -15,34 +15,32 @@ public class ChannelImpl implements Channel {
 
 	@Override
 	public void putMessage(String message) {
-		synchronized (this) {
-			if (!isFull()) {
-				this.buffer.add(message);
-				this.buffer.notifyAll();
-			} else {
+		synchronized (this.buffer) {
+			while(isFull()) {
 				try {
 					this.buffer.wait();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+			this.buffer.add(message); 
+			this.buffer.notifyAll();
 		}
 	}
 
 	@Override
 	public String takeMessage() {
 		String mensagem = null; 
-		synchronized (this) {
-			if(isEmpty()) {
+		synchronized (this.buffer) {
+			while(isEmpty()) {
 				try {
 					this.buffer.wait();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			} else {
-				mensagem = this.buffer.poll();
-				this.buffer.notifyAll();
 			}
+			mensagem = this.buffer.poll(); 
+			this.buffer.notifyAll();
 		}
 		return mensagem;
 	}
