@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		final Channel canal01 = new ChannelImpl(10);
+		final Channel canal01 = new ChannelImpl(2);
 
 		Thread th01 = new Thread(new Runnable() {
 

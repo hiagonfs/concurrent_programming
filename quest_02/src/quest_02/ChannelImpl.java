@@ -30,19 +30,18 @@ public class ChannelImpl implements Channel {
 
 	@Override
 	public String takeMessage() {
-		String mensagem = null; 
 		synchronized (this.buffer) {
 			while(isEmpty()) {
 				try {
-					this.wait();
+					this.buffer.wait();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-			mensagem = this.buffer.poll(); 
+			String mensagem = this.buffer.poll(); 
 			this.buffer.notifyAll();
+			return mensagem; 
 		}
-		return mensagem;
 	} 
 
 	private boolean isFull() {
