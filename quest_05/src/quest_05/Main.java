@@ -13,6 +13,7 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 
 		EvaluateMap evaluateMap = new EvaluateMap();
+		EvaluateList evaluateList = new EvaluateList(); 
 
 		Map<Integer, Integer> mapOne = new ConcurrentHashMap<Integer, Integer>();
 		Map<Integer, Integer> mapTwo = Collections.synchronizedMap(new HashMap<Integer, Integer>());
@@ -20,17 +21,17 @@ public class Main {
 		CopyOnWriteArrayList<Integer> listOne = new CopyOnWriteArrayList<>();
 		List<Integer> listTwo = Collections.synchronizedList(new ArrayList<Integer>());
 
-		int[] valoresDeTesteMapeamento = { 1, 2, 3, 4, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000 };
-		int[] valoresDeTesteLista = { 1, 2, 3, 4, 5, 10, 100, 1000, 10000, 100000 };
+		int[] valoresDeTesteMapeamento = { 1, 2, 3, 10, 100, 1000, 10000, 100000, 1000000, 10000000 };
+		int[] valoresDeTesteLista = { 1, 2, 3, 10, 100, 1000, 20000, 10000 };
 
-		System.out.println("Teste Concurrent HashMap");
-		for (int i = 0; i < valoresDeTesteMapeamento.length; i++) {
-			System.out.println(evaluateMap.testPut(mapOne, valoresDeTesteMapeamento[i]));
+		System.out.println("Teste CopyOnWriteArrayList");
+		for (int i = 0; i < valoresDeTesteLista.length; i++) {
+			System.out.println(evaluateList.testRemove(listOne, valoresDeTesteLista[i])); // tipo de teste e colecao a ser testada
 		}
 		
-		System.out.println("Teste Collections.synchronizedMap");
-		for (int i = 0; i < valoresDeTesteMapeamento.length; i++) {
-			System.out.println(evaluateMap.testPut(mapTwo, valoresDeTesteMapeamento[i]));
+		System.out.println("Teste Collections.synchronizedList");
+		for (int i = 0; i < valoresDeTesteLista.length; i++) {
+			System.out.println(evaluateList.testRemove(listTwo, valoresDeTesteLista[i])); // tipo de teste e colecao a ser testada
 		}
 
 	}
