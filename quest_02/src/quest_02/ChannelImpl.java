@@ -25,6 +25,12 @@ public class ChannelImpl implements Channel {
 					e.printStackTrace();
 				}
 			}
+			if (this.close)
+				try {
+					throw new Exception("Canal fechado");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			this.buffer.add(message);
 			this.buffer.notifyAll();
 		}
