@@ -33,7 +33,7 @@ public class ChannelImpl implements Channel {
 	@Override
 	public String takeMessage() {
 		synchronized (this.buffer) {
-			while (isEmpty() && this.close) {
+			while (isEmpty() && !this.close) {
 				try {
 					this.buffer.wait();
 				} catch (InterruptedException e) {
