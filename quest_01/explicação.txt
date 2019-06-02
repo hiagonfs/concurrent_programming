@@ -1,0 +1,1 @@
+A utilização de mutex aumenta o desempenho, devido aos bloqueios, menos bloqueios aumentam o número de contenções(systemCalls lentas, paralisações de CPU) e claro menor paralelismo, aumentando os bloqueios teremos uma quantidade menor de dispustas, aumentando o paralelismo.
