@@ -1,16 +1,21 @@
-package quest_03;
+package quest_04;
 
 import java.util.Random;
 
-public class B {
+import quest_04.Channel;
+import quest_04.ChannelImpl;
+
+public class B4 {
 
 	static final Channel canal01 = new ChannelImpl(5);
 	static int soma = 0;
+	static int seconds = 0;
 
 	public static void main(String[] args) {
+		timer();
 		System.out.println("soma "+gateway(5));
 	}
-
+	
 	static int gateway(int num_replicas) {
 		Thread th = null;
 		for (int i = 0; i < num_replicas; i++) {
@@ -47,6 +52,27 @@ public class B {
 			e.printStackTrace();
 		}
 		return valor;
+	}
+
+	
+	private static void timer() {
+		long start = System.currentTimeMillis();
+		Thread counter = new Thread() {
+
+			@Override
+			public void run() {
+				while (seconds < 31) {
+					try {
+						seconds = (int)(System.currentTimeMillis() - start) / 1000;
+						System.out.println(seconds+"s");
+						Thread.sleep(1000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		};
+		counter.start();
 	}
 
 }
