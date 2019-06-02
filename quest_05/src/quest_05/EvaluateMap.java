@@ -3,9 +3,8 @@ package quest_05;
 import java.util.Map;
 
 public class EvaluateMap {
-	
+
 	public EvaluateMap() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String testGet(Map<Integer, Integer> map, int value) throws InterruptedException {
@@ -32,9 +31,9 @@ public class EvaluateMap {
 
 		long tempoFinal = System.currentTimeMillis();
 
-		long tempo = tempoFinal - tempoInicio; 
+		long tempo = tempoFinal - tempoInicio;
 
-		return "Test Get, Time: " + tempo;
+		return "Test Get, Qtd_valores: "+ value + ", Time: " + tempo;
 	}
 
 	public String testPut(Map<Integer, Integer> map, int value) throws InterruptedException {
@@ -60,10 +59,10 @@ public class EvaluateMap {
 		}
 
 		long tempoFinal = System.currentTimeMillis();
-		
-		long tempo = tempoFinal - tempoInicio; 
 
-		return "Test Put, Time: " + tempo;
+		long tempo = tempoFinal - tempoInicio;
+
+		return "Test Put, Qtd_valores: "+ value + ", Time: " + tempo;
 
 	}
 
@@ -91,9 +90,9 @@ public class EvaluateMap {
 
 		long tempoFinal = System.currentTimeMillis();
 
-		long tempo = tempoFinal - tempoInicio; 
+		long tempo = tempoFinal - tempoInicio;
 
-		return "Test Remove, Time: " + tempo;
+		return "Test Remove, Qtd_valores: "+ value + ", Time: " + tempo;
 	}
 
 }
