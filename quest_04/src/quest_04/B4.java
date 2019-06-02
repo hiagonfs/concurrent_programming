@@ -37,6 +37,9 @@ public class B4 {
 			e.printStackTrace();
 		}
 		while (!canal01.isEmpty()) {
+			if (seconds >= 16) {
+				return -1;
+			}
 			soma += Integer.valueOf(canal01.takeMessage());
 		}
 		return soma;
