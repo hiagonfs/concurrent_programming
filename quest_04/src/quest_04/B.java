@@ -1,4 +1,4 @@
-package quest_03;
+package quest_04;
 
 import java.util.Random;
 
