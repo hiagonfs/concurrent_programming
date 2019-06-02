@@ -1,0 +1,33 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+theme_set(theme_bw())
+```
+
+```{r}
+results = read_csv(here("arraylistxsynclist.csv"), 
+                    progress = FALSE,
+                    col_types = cols(.default = col_double(), 
+                                     collection = col_character(),
+                                     test = col_character(), 
+                                     qtd = col_character(), 
+                                     time = col_character()))
+
+```
+
+```{r}
+results$qtd <- factor(results$qtd,levels = c("1", "2", "3", "10", "100", "1000", "10000", "20000"))
+
+results$time <- factor(results$time,levels = c("0", "1", "2", "3", "4", "5", "8", "9", "11", "13", "16", "21", "31", "33", "37", "141", "3718", "4628", "4838", "7959", "28897", "48972")) 
+
+
+ggplot(results, aes(x = qtd, y = time, color = collection))  + 
+    geom_point() + 
+    labs(title =" CopyOnWriteArrayList x SynchronizedList", x = "Quantidade de valores", y = "Tempo", color = "Collection") +
+    facet_grid(test ~.)
+```
