@@ -3,6 +3,10 @@ package quest_05;
 import java.util.Map;
 
 public class EvaluateMap {
+	
+	public EvaluateMap() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String testGet(Map<Integer, Integer> map, int value) throws InterruptedException {
 
