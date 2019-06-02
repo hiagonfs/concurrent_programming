@@ -3,11 +3,11 @@ package quest_03;
 import java.util.Random;
 
 public class B {
-	
+
 	static int soma = 0;
-	
-	public static void main(String[] args) {
-		System.out.println("soma "+gateway(5));
+
+	public static void main(String[] args) throws InterruptedException {
+		System.out.println(gateway(5));
 	}
 	
 	static int gateway(int num_replicas){
@@ -17,7 +17,6 @@ public class B {
 				@Override
 				public void run() {
 					int valor = request();
-					System.out.println(valor);
 					soma += valor;
 					try {
 						sleep(valor * 1000);
@@ -38,8 +37,8 @@ public class B {
 		}
 		return soma;
 	}
-	
-	static int request(){
+
+	static int request() {
 		Random gerador = new Random();
 		int valor = gerador.nextInt(30) + 1;
 		return valor;
