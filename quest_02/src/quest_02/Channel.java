@@ -2,8 +2,10 @@ package quest_02;
 
 public interface Channel {
 	
-	public void putMessage(String message);
+	void putMessage(String message);
 	
-	public String takeMessage();
+	String takeMessage();
+	
+	void close(); 
 
 }

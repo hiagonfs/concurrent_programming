@@ -7,23 +7,25 @@ public class ChannelImpl implements Channel {
 
 	private int capacidadeMaxima;
 	private Queue<String> buffer;
+	private volatile boolean close;
 
 	public ChannelImpl(int capacidade) {
 		this.capacidadeMaxima = capacidade;
 		this.buffer = new LinkedList<>();
+		this.close = false;
 	}
 
 	@Override
 	public void putMessage(String message) {
 		synchronized (this.buffer) {
-			while(isFull()) {
+			while (isFull() && !this.close) {
 				try {
 					this.buffer.wait();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-			this.buffer.add(message); 
+			this.buffer.add(message);
 			this.buffer.notifyAll();
 		}
 	}
@@ -31,18 +33,26 @@ public class ChannelImpl implements Channel {
 	@Override
 	public String takeMessage() {
 		synchronized (this.buffer) {
-			while(isEmpty()) {
+			while (isEmpty() && this.close) {
 				try {
 					this.buffer.wait();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-			String mensagem = this.buffer.poll(); 
+			String mensagem = this.buffer.poll();
 			this.buffer.notifyAll();
-			return mensagem; 
+			return mensagem;
 		}
-	} 
+	}
+
+	@Override
+	public void close() {
+		synchronized (this.buffer) {
+			close = true;
+			this.buffer.notifyAll();
+		}
+	}
 
 	private boolean isFull() {
 		return this.buffer.size() == this.capacidadeMaxima;
