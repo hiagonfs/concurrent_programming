@@ -16,9 +16,7 @@ func request() int {
   return num 
 }
 
-func gateway(num_replicas int) int {
-
-	start := time.Now()
+func gateway(num_replicas int) int {	
 
     messages := make(chan int)
     for i := 0; i < num_replicas; i++ {
@@ -28,18 +26,18 @@ func gateway(num_replicas int) int {
     }
 
 	msg := <- messages
-
-	end := time.Since(start).Seconds()
-
-	if(end > 8) {
-		return -1
-	} else {
-		return msg
-	}
+	
+	return msg
 }
 
 func main() {
+	chanResposta := make(chan int, 1)
+	select {
+		case <- time.Tick(time.Second * 8):
+			fmt.Println("Error, timeout")
 	
-	fmt.Println(gateway(2))
-		
+		case chanResposta <- gateway(4):
+			fmt.Printf("Retorno %d", <-chanResposta)
+			close(chanResposta)
+	}
 }
