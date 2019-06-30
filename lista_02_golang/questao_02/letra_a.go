@@ -31,13 +31,18 @@ func gateway(num_replicas int) int {
 }
 
 func main() {
-	chanResposta := make(chan int, 1)
-	select {
-		case <- time.Tick(time.Second * 8):
-			fmt.Println("Error, timeout")
 	
-		case chanResposta <- gateway(4):
-			fmt.Printf("Retorno %d", <-chanResposta)
-			close(chanResposta)
+	chanResposta1 := make(chan int, 1)
+	chanResposta2 := time.Tick(8000 * time.Millisecond)
+	
+	chanResposta1 <-gateway(3) 
+
+	select {
+		
+		case result := <-chanResposta1:
+			fmt.Printf("Retorno %d", result) 
+			
+		case <-chanResposta2:
+			fmt.Println("-1") 
 	}
 }
