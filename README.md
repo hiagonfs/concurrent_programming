@@ -1,2 +1,2 @@
-# lista01-progconcorrente
-Repositório com a lista 1 da disciplina de Programação Concorrente.
+# Programação Concorrente
+Repositório com as listas da disciplina de Programação Concorrente.
