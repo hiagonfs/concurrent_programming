@@ -12,6 +12,7 @@ func request() int {
   min := 1
   max := 30
   num := rand.Intn(max - min) + min
+  fmt.Println("int gerado: ", num)
   time.Sleep(time.Duration(num) * time.Second)
   return num 
 }
@@ -29,6 +30,11 @@ func gateway(num_replicas int) int {
 
 
 func main() {
+  chanResposta := make(chan int, 1)
 
-  fmt.Println(gateway(3))
+  chanResposta <-gateway(4)
+
+  close(chanResposta)
+
+  fmt.Println("a primeira a finalizar foi: ", <-chanResposta)
 }
