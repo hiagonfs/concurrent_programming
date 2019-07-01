@@ -1,0 +1,40 @@
+---
+title: "Experimento Java Go"
+output:
+  pdf_document:
+    toc: yes
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  html_document:
+    code_folding: hide
+    df_print: paged
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+theme_set(theme_bw())
+```
+
+```{r, include=FALSE}
+dados = read_csv(here("dados.csv"), 
+                    progress = FALSE,
+                    col_types = cols(
+                                  linguagem = col_character(),
+                                  qtd_threads_routines = col_integer(),
+                                  memoria = col_integer()))
+```
+
+#Avaliando a diferença de consumo de memória em programas equivalentes em Java e Go, utilizando threads e goroutines.
+
+Um programa que cria threads em Java e goroutines em Go foi utilizado para o experimento. Foram criados 10,50,100 e 150 threads/goroutines em cada execução do programa. Abaixo vemos a comparação do uso de memória nas duas linguagens.
+```{r}
+ggplot(dados, aes(x = as.factor(`qtd_threads_routines`), y = memoria, fill = linguagem)) +
+  geom_col(position = "dodge") + 
+  labs(x = "Quantidade de threads/goroutines", y = "Memoria usada", fill = "Linguagem")
+```
+
+A diferença é muito grande, com a criação de threads chegando a consumir 30 MB, enquanto em Go o maior consummo foi de 38kB.
