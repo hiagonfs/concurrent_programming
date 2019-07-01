@@ -20,8 +20,9 @@ func request() int {
   min := 1
   max := 30
   num := rand.Intn(max - min) + min
-  fmt.Println(num)
+  fmt.Println("int gerado: ", num)
   //time.Sleep(time.Duration(num) * time.Second)
+  // deixei o sleep comentado por questoes de agilidade na soma
   return num 
 }
 
@@ -54,5 +55,11 @@ func gateway(num_replicas int) int {
 }
 
 func main() {
-  fmt.Println(gateway(5))
+  chanResposta := make(chan int, 1)
+
+  chanResposta <-gateway(4)
+
+  close(chanResposta)
+
+  fmt.Println("a soma dos inteiros gerados eh: ", <-chanResposta)
 }
