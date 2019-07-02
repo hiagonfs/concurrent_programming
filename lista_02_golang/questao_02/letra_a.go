@@ -16,7 +16,7 @@ func request() int {
   return num 
 }
 
-func gateway(num_replicas int) int {	
+func gateway(num_replicas int) chan int {	
 
     messages := make(chan int)
     for i := 0; i < num_replicas; i++ {
@@ -25,24 +25,19 @@ func gateway(num_replicas int) int {
         }()
     }
 
-	msg := <- messages
-	
-	return msg
+	return messages
 }
 
 func main() {
 	
-	chanResposta1 := make(chan int, 1)
-	chanResposta2 := time.Tick(8000 * time.Millisecond)
+	timer := time.Tick(8000 * time.Millisecond)
 	
-	chanResposta1 <-gateway(3) 
-
 	select {
 		
-		case result := <-chanResposta1:
+		case result := <-gateway(2):
 			fmt.Printf("Retorno %d", result) 
 			
-		case <-chanResposta2:
+		case <-timer:
 			fmt.Println("-1") 
 	}
 }
