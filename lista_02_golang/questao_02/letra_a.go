@@ -30,7 +30,7 @@ func gateway(num_replicas int) chan int {
 
 func main() {
 	
-	timer := time.Tick(8000 * time.Millisecond)
+	timer := time.Tick(8 * time.Second)
 	
 	select {
 		
