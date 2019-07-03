@@ -17,24 +17,19 @@ func request() int {
   return num 
 }
 
-func gateway(num_replicas int) int {
+func gateway(num_replicas int) chan int {
     messages := make(chan int)
     for i := 0; i < num_replicas; i++ {
         go func() {
            messages <- request() 
         }()
     }
-    msg := <-messages
-    return msg
+    return messages
 }
 
 
 func main() {
-  chanResposta := make(chan int, 1)
+  
+	fmt.Println("a primeira a finalizar foi: ",<-gateway(4))
 
-  chanResposta <-gateway(4)
-
-  close(chanResposta)
-
-  fmt.Println("a primeira a finalizar foi: ", <-chanResposta)
 }
