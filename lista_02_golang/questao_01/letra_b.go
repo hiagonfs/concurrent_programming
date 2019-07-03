@@ -55,11 +55,9 @@ func gateway(num_replicas int) int {
 }
 
 func main() {
-  chanResposta := make(chan int, 1)
 
-  chanResposta <-gateway(4)
+  result := gateway(5)
 
-  close(chanResposta)
+  fmt.Println("a soma dos inteiros gerados eh: ", result)
 
-  fmt.Println("a soma dos inteiros gerados eh: ", <-chanResposta)
 }
